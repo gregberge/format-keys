@@ -7,9 +7,9 @@ Format object keys recursively.
 
 ## Install
 
-```
+```sh
 npm install format-keys
-``
+```
 
 ## Usage
 
