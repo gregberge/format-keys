@@ -1,29 +1,34 @@
-var _ = require('lodash');
-
-/**
- * Expose module.
- */
-
 module.exports = formatKeys;
 
 /**
- * Format object keys recursively.
+ * Format input keys recursively.
  *
- * @param {Object} object
+ * @param {Object} input
  * @param {Function} formatter
  * @returns {Object}
  */
 
-function formatKeys(object, formatter) {
-  if (! Array.isArray(object) && ! _.isPlainObject(object)) return object;
+function formatKeys(input, formatter) {
+  if (!input || typeof input !== 'object') {
+    throw new Error('input is not an object literal or array');
+  }
+  if (typeof formatter !== 'function') {
+    throw new Error('formatter is not a function');
+  }
 
-  if (Array.isArray(object)) return _.map(object, function (val) {
-      return formatKeys(val, formatter);
+  if (Array.isArray(input)) {
+    return input.map(function(val) {
+      return formatIfObject(val, formatter);
     });
+  }
 
-  return Object.keys(object).reduce(function (mem, key) {
+  return Object.keys(input).reduce(function(mem, key) {
     var newKey = formatter(key);
-    mem[newKey] = formatKeys(object[key], formatter);
+    mem[newKey] = formatIfObject(input[key], formatter);
     return mem;
   }, {});
+}
+
+function formatIfObject(val, formatter) {
+  return typeof val === 'object' ? formatKeys(val, formatter) : val;
 }
