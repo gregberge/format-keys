@@ -1,6 +1,6 @@
 {
   "name": "format-keys",
-  "version": "0.1.2",
+  "version": "1.0.0",
   "description": "Format object keys recursively.",
   "main": "index.js",
   "scripts": {
