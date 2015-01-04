@@ -30,5 +30,5 @@ function formatKeys(input, formatter) {
 }
 
 function formatIfObject(val, formatter) {
-  return typeof val === 'object' ? formatKeys(val, formatter) : val;
+  return val && typeof val === 'object' ? formatKeys(val, formatter) : val;
 }

@@ -37,4 +37,14 @@ describe('#formatKeys', function() {
     ]);
   });
 
+  // because `null` is an object
+  it('should not consider call itself internally on `null` values', function() {
+    var obj = {
+      foo: null
+    };
+    assert.doesNotThrow(function() {
+      formatKeys(obj, Function.call.bind(''.toUpperCase));
+    });
+  });
+
 });
