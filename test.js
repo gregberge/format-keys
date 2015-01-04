@@ -47,4 +47,13 @@ describe('#formatKeys', function() {
     });
   });
 
+  it('should not mangle Date objects and the like', function() {
+    var d = new Date();
+    var obj = {
+      foo: d
+    };
+    var formatted = formatKeys(obj, Function.call.bind(''.toUpperCase));
+    assert.deepEqual({FOO: d}, formatted);
+  });
+
 });
